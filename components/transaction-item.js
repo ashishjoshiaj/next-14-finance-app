@@ -25,8 +25,9 @@ export default function TransactionItem({
       colors: 'text-yellow-500 dark:text-yellow-400'
     }
   }
-  const IconComponent = typesMap[type].icon
-  const colors = typesMap[type].colors
+  const typeData = typesMap[type] || { icon: HandCoins, colors: 'text-gray-400' }
+  const IconComponent = typeData.icon
+  const colors = typeData.colors
   const formattedAmount = useFormatCurrency(amount)
   return (<div className="w-full flex items-center">
     <div className="flex items-center mr-4 grow">

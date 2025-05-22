@@ -13,8 +13,9 @@ import { createClient } from "@/lib/supabase/server"
 
 export default async function Page({ searchParams }) {
   const supabase = await createClient()
-  const { data: { user: { user_metadata: settings } = {} } = {} } = await supabase.auth.getUser()
-  const range = searchParams?.range ?? settings?.defaultView ?? 'last30days'
+  const { data } = await supabase.auth.getUser()
+  const settings = data?.user?.user_metadata || {}
+  const range = (await searchParams)?.range ?? settings?.defaultView ?? 'last30days'
 
   return (
     <div className="space-y-8">
